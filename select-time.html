@@ -90,7 +90,6 @@
           <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         </div>
 
-        <p class="text-sm font-medium text-gray-700 mb-2">Select a Date</p>
         <div class="flex items-center gap-1">
           <button onclick="prevWeek()" class="text-gray-400 hover:text-brand p-1">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -107,10 +106,9 @@
         <div class="flex items-center justify-between mb-2">
           <p class="text-sm font-medium text-gray-700">Available Times</p>
         </div>
-        <!-- Grid header -->
-        <div class="grid gap-1 mb-1" id="gridHeader" style="grid-template-columns: 80px repeat(5, 1fr)"></div>
-        <!-- Grid body -->
-        <div class="overflow-y-auto max-h-80" id="gridBody"></div>
+        <div class="border border-gray-200 rounded-lg overflow-hidden">
+          <div class="overflow-y-auto max-h-[480px]" id="timeGrid"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -217,24 +215,27 @@ function pickSlot(date, time){
 
 function renderGrid(){
   const days = getVisibleDays();
-  // Header
-  document.getElementById('gridHeader').innerHTML =
-    `<div class="text-xs text-gray-400 font-medium text-right pr-2">Time</div>` +
-    days.map(d=>`<div class="text-xs font-medium text-center ${d.date===selectedDate?'text-brand font-bold':'text-gray-500'}">${d.label.split(' ').slice(0,2).join(' ')}</div>`).join('');
-  // Body
-  document.getElementById('gridBody').innerHTML = `<div class="space-y-0.5">` +
-    TIMES.map(t=>`
-      <div class="grid gap-1" style="grid-template-columns: 80px repeat(5, 1fr)">
-        <div class="text-xs text-gray-400 text-right pr-2 py-0.5 self-center">${t}</div>
+  const thead = `<thead>
+    <tr class="bg-gray-50 border-b border-gray-200">
+      <th class="text-xs font-medium text-gray-500 py-2 px-3 text-left w-24 sticky top-0 bg-gray-50">Times</th>
+      ${days.map(d=>`<th class="text-xs font-semibold py-2 px-2 text-center sticky top-0 bg-gray-50 ${d.date===selectedDate?'text-brand':'text-gray-500'}">${d.label}</th>`).join('')}
+    </tr>
+  </thead>`;
+  const tbody = `<tbody>
+    ${TIMES.map(t=>`
+      <tr class="border-b border-gray-100">
+        <td class="text-xs text-gray-400 py-2 px-3 whitespace-nowrap border-r border-gray-100">${t}</td>
         ${days.map(d=>{
           const avail = (AVAILABILITY[d.date]||[]).includes(t);
           const sel = d.date===selectedDate && t===selectedTime;
-          if(sel) return `<button onclick="pickSlot('${d.date}','${t}')" class="slot-selected">${t}</button>`;
-          if(avail) return `<button onclick="pickSlot('${d.date}','${t}')" class="slot-book">Book</button>`;
-          return `<span class="slot-na">—</span>`;
+          if(sel) return `<td class="text-center py-2 px-2"><span class="slot-selected" onclick="pickSlot('${d.date}','${t}')">${t}</span></td>`;
+          if(avail) return `<td class="text-center py-2 px-2"><span class="slot-book" onclick="pickSlot('${d.date}','${t}')">Book</span></td>`;
+          return `<td class="text-center py-2 px-2"><span class="slot-na">—</span></td>`;
         }).join('')}
-      </div>
-    `).join('') + `</div>`;
+      </tr>
+    `).join('')}
+  </tbody>`;
+  document.getElementById('timeGrid').innerHTML = `<table class="w-full border-collapse">${thead}${tbody}</table>`;
 }
 
 function prevWeek(){ if(weekOffset>0){weekOffset--;renderDayStrip();} }
