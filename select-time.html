@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Time | Dermatology of Boca</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { brand: { DEFAULT:'#7ba8a0',50:'#f0f7f6',100:'#daecea',200:'#b5d8d5',500:'#5d8f87' } } } }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Inter',sans-serif;}
+    .slot-book { font-size:.7rem; padding:3px 0; border-radius:4px; border:1px solid #7ba8a0; color:#7ba8a0; cursor:pointer; width:100%; text-align:center; transition:all .15s; background:white; display:block; }
+    .slot-book:hover { background:#7ba8a0; color:white; }
+    .slot-selected { font-size:.7rem; padding:3px 0; border-radius:4px; background:#7ba8a0; color:white; width:100%; text-align:center; border:1px solid #7ba8a0; cursor:pointer; display:block; }
+    .slot-na { font-size:.7rem; padding:3px 0; border-radius:4px; border:1px solid #f3f4f6; color:#d1d5db; width:100%; text-align:center; display:block; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<!-- ── STEP HEADER ──────────────────────────────────── -->
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="flex items-center h-14 px-4">
+    <a href="index.html" class="text-gray-400 hover:text-gray-600 mr-3">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </a>
+    <img src="src/assets/logo.jpg" alt="Dermatology of Boca" class="h-8 object-contain">
+    <div class="ml-auto flex items-center gap-2 text-xs">
+      <!-- Step 1: done -->
+      <div class="flex items-center gap-1.5">
+        <div class="w-6 h-6 rounded-full bg-brand flex items-center justify-center">
+          <svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <span class="text-gray-400 line-through">Choose Provider</span>
+      </div>
+      <div class="w-10 h-0.5 bg-brand"></div>
+      <!-- Step 2: active -->
+      <div class="flex items-center gap-1.5">
+        <div class="w-6 h-6 rounded-full bg-brand flex items-center justify-center"><span class="text-white text-xs font-bold">2</span></div>
+        <span class="font-semibold text-brand">Select Time</span>
+      </div>
+      <div class="w-10 h-0.5 bg-gray-200"></div>
+      <div class="flex items-center gap-1.5 opacity-40">
+        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center"><span class="text-gray-500 text-xs font-bold">3</span></div>
+        <span class="text-gray-500">Confirm Details</span>
+      </div>
+      <div class="w-10 h-0.5 bg-gray-200"></div>
+      <div class="flex items-center gap-1.5 opacity-40">
+        <div class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center"><span class="text-gray-500 text-xs font-bold">4</span></div>
+        <span class="text-gray-500">Complete</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── MAIN ─────────────────────────────────────────── -->
+<div class="max-w-5xl mx-auto px-4 py-6 flex gap-6">
+
+  <!-- Left: Selector -->
+  <div class="flex-1">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <h1 class="text-lg font-bold text-gray-900 mb-1">Select Your Appointment Time</h1>
+      <p class="text-sm text-gray-500 mb-6">Choose a convenient date and time with Dr. Sarah Mitchell</p>
+
+      <!-- Appointment type -->
+      <div class="mb-6">
+        <p class="text-sm font-medium text-gray-700 mb-2">Appointment Type</p>
+        <div class="flex gap-2">
+          <button id="btnInPerson" onclick="setType('in-person')"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium transition-colors bg-brand text-white border-brand">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+            In-Person
+          </button>
+          <button id="btnVirtual" onclick="setType('virtual')"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium transition-colors text-gray-600 border-gray-300">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Virtual Visit
+          </button>
+        </div>
+      </div>
+
+      <!-- Date selector -->
+      <div class="mb-4">
+        <p class="text-sm font-medium text-gray-700 mb-2">Select a Date</p>
+        <div class="flex items-center justify-between border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 mb-3" id="dateDisplay">
+          Mon, May 18, 2026
+          <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+
+        <p class="text-sm font-medium text-gray-700 mb-2">Select a Date</p>
+        <div class="flex items-center gap-1">
+          <button onclick="prevWeek()" class="text-gray-400 hover:text-brand p-1">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <div class="flex gap-1 flex-1" id="dayStrip"></div>
+          <button onclick="nextWeek()" class="text-gray-400 hover:text-brand p-1">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Time grid -->
+      <div class="mt-4">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-sm font-medium text-gray-700">Available Times</p>
+        </div>
+        <!-- Grid header -->
+        <div class="grid gap-1 mb-1" id="gridHeader" style="grid-template-columns: 80px repeat(5, 1fr)"></div>
+        <!-- Grid body -->
+        <div class="overflow-y-auto max-h-80" id="gridBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Summary -->
+  <div class="w-72 shrink-0">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sticky top-24">
+      <h3 class="font-semibold text-sm text-gray-900 mb-3">Appointment Summary</h3>
+      <div class="flex items-center gap-3 pb-3 border-b border-gray-100">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Sarah Mitchell" class="w-12 h-12 rounded-full object-cover">
+        <div>
+          <p class="font-semibold text-sm text-gray-900">Dr. Sarah Mitchell, MD, FA...</p>
+          <p class="text-xs text-brand">Dermatologist</p>
+        </div>
+      </div>
+      <div class="pt-3 space-y-2">
+        <div class="flex items-center gap-2 text-sm text-gray-600" id="summaryTime">
+          <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>No time selected</span>
+        </div>
+        <div class="flex items-center gap-2 text-sm text-gray-600">
+          <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+          <span>Miami, FL</span>
+        </div>
+      </div>
+      <a href="confirm-details.html" id="continueBtn"
+        class="hidden mt-4 bg-brand hover:bg-brand-500 text-white text-center py-2.5 rounded-lg text-sm font-medium transition-colors block">
+        Continue to Confirmation
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+const ALL_DAYS = [
+  {name:'Mon',num:14,month:'May',date:'2026-05-14',label:'Today'},
+  {name:'Tue',num:15,month:'May',date:'2026-05-15',label:'Tomorrow'},
+  {name:'Wed',num:16,month:'May',date:'2026-05-16',label:'Wed May 16'},
+  {name:'Thu',num:17,month:'May',date:'2026-05-17',label:'Thu May 17'},
+  {name:'Fri',num:18,month:'May',date:'2026-05-18',label:'Mon May 18'},
+  {name:'Sat',num:19,month:'May',date:'2026-05-19',label:'Tue May 19'},
+  {name:'Sun',num:20,month:'May',date:'2026-05-20',label:'Wed May 20'},
+  {name:'Mon',num:21,month:'May',date:'2026-05-21',label:'Thu May 21'},
+  {name:'Tue',num:22,month:'May',date:'2026-05-22',label:'Fri May 22'},
+];
+
+const AVAILABILITY = {
+  '2026-05-14':['8:00 AM','9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM'],
+  '2026-05-15':['9:00 AM','10:30 AM','2:00 PM','3:30 PM','4:00 PM'],
+  '2026-05-16':['8:30 AM','9:30 AM','11:00 AM','1:00 PM','2:30 PM'],
+  '2026-05-17':['8:00 AM','10:00 AM','1:00 PM','3:00 PM','4:30 PM'],
+  '2026-05-18':['8:00 AM','9:00 AM','10:30 AM','2:00 PM','3:00 PM'],
+  '2026-05-19':['9:30 AM','11:00 AM','1:30 PM'],
+  '2026-05-20':['10:00 AM','2:00 PM','3:30 PM'],
+  '2026-05-21':['8:00 AM','11:00 AM','2:00 PM'],
+  '2026-05-22':['9:00 AM','10:00 AM','3:00 PM'],
+};
+
+const TIMES = ['8:00 AM','8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM',
+               '12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM','5:00 PM'];
+
+let weekOffset = 0;
+let selectedDate = '2026-05-14';
+let selectedTime = '';
+
+function getVisibleDays(){
+  const start = weekOffset * 5;
+  return ALL_DAYS.slice(start, start+5);
+}
+
+function renderDayStrip(){
+  const days = getVisibleDays();
+  document.getElementById('dayStrip').innerHTML = days.map(d=>`
+    <button onclick="selectDate('${d.date}')"
+      class="flex-1 border rounded-lg py-2 text-center transition-colors ${d.date===selectedDate?'bg-brand text-white border-brand':'border-gray-200 text-gray-700 hover:border-brand'}">
+      <p class="text-xs opacity-70">${d.name}</p>
+      <p class="text-sm font-bold">${d.num}</p>
+      <p class="text-xs opacity-60">${d.month}</p>
+    </button>
+  `).join('');
+  renderGrid();
+}
+
+function selectDate(date){
+  selectedDate = date;
+  const d = ALL_DAYS.find(x=>x.date===date);
+  if(d){
+    document.getElementById('dateDisplay').innerHTML = `${d.name}, ${d.month} ${d.num}, 2026
+      <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`;
+  }
+  renderDayStrip();
+}
+
+function pickSlot(date, time){
+  selectedDate = date;
+  selectedTime = time;
+  const d = ALL_DAYS.find(x=>x.date===date);
+  document.getElementById('summaryTime').innerHTML = `
+    <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+    <span>${d?d.name+', '+d.month+' '+d.num+', 2026':date} at ${time}</span>`;
+  document.getElementById('continueBtn').classList.remove('hidden');
+  renderGrid();
+}
+
+function renderGrid(){
+  const days = getVisibleDays();
+  // Header
+  document.getElementById('gridHeader').innerHTML =
+    `<div class="text-xs text-gray-400 font-medium text-right pr-2">Time</div>` +
+    days.map(d=>`<div class="text-xs font-medium text-center ${d.date===selectedDate?'text-brand font-bold':'text-gray-500'}">${d.label.split(' ').slice(0,2).join(' ')}</div>`).join('');
+  // Body
+  document.getElementById('gridBody').innerHTML = `<div class="space-y-0.5">` +
+    TIMES.map(t=>`
+      <div class="grid gap-1" style="grid-template-columns: 80px repeat(5, 1fr)">
+        <div class="text-xs text-gray-400 text-right pr-2 py-0.5 self-center">${t}</div>
+        ${days.map(d=>{
+          const avail = (AVAILABILITY[d.date]||[]).includes(t);
+          const sel = d.date===selectedDate && t===selectedTime;
+          if(sel) return `<button onclick="pickSlot('${d.date}','${t}')" class="slot-selected">${t}</button>`;
+          if(avail) return `<button onclick="pickSlot('${d.date}','${t}')" class="slot-book">Book</button>`;
+          return `<span class="slot-na">—</span>`;
+        }).join('')}
+      </div>
+    `).join('') + `</div>`;
+}
+
+function prevWeek(){ if(weekOffset>0){weekOffset--;renderDayStrip();} }
+function nextWeek(){ if(weekOffset<1){weekOffset++;renderDayStrip();} }
+
+function setType(type){
+  document.getElementById('btnInPerson').className = `flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${type==='in-person'?'bg-brand text-white border-brand':'text-gray-600 border-gray-300 hover:border-brand'}`;
+  document.getElementById('btnVirtual').className = `flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${type==='virtual'?'bg-brand text-white border-brand':'text-gray-600 border-gray-300 hover:border-brand'}`;
+}
+
+renderDayStrip();
+</script>
+</body>
+</html>
